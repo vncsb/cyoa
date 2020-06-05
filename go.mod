@@ -1,3 +1,3 @@
-module github.com/vncsb/choose-your-own-adventure
+module github.com/vncsb/cyoa
 
 go 1.14

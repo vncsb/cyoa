@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Your Own Adventure</title>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 5px;
+            padding: 2px 16px;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1 style="text-align: center;">{{.Title}}</h1>
+        <div>
+            {{range .Paragraphs}}
+            <p>{{.}}</p>
+            {{end}}
+        </div>
+        <p>
+        <h3 style="text-align: center;">
+            {{if .Options}}
+            OPTIONS
+            {{else}}
+            <a href="/">RESTART</a>
+            {{end}}
+        </h3>
+        </p>
+        <div>
+            {{range .Options}}
+            <p>
+                > <a href="{{.Chapter}}">{{.Text}}</a>
+            </p>
+            {{end}}
+        </div>
+    </div>
+</body>
+
+</html>
+
+<!-- 
+type Chapter struct {
+	Title      string   `json:"title"`
+	Paragraphs []string `json:"story"`
+	Options    []Option `json:"options"`
+}
+
+type Option struct {
+	Text    string `json:"text"`
+	Chapter string `json:"arc"`
+} -->

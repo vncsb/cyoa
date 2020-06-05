@@ -1,10 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
+	"net/http"
 	"os"
+	"text/template"
+
+	"github.com/vncsb/cyoa"
 )
 
 func main() {
@@ -17,11 +20,14 @@ func main() {
 		panic(err)
 	}
 
-	d := json.NewDecoder(f)
-	var story cyoa.Story
-	if err := d.Decode(&story); err != nil {
+	story, err := cyoa.JsonStory(f, "intro")
+	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("%+v\n", story)
+	tmpl, err := template.ParseFiles(`C:\Users\vinic\Documents\Go\choose-your-own-adventure\tmpl\chapter.html`)
+
+	sh := cyoa.NewStoryHandler(story, *tmpl)
+
+	http.ListenAndServe(":8080", sh)
 }
